@@ -88,6 +88,7 @@ var alunos = [
 		nota:8.6
 	}
 ]
+// dividindo alunos e notas
 var maiores = [];
 var menores = [];
 console.log(maiores);
