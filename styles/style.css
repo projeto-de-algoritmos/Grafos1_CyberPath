@@ -75,25 +75,6 @@ footer p {
 
 /* Grid Style */
 .grid-container {
-  max-width: 100%;
-}
-
-:root {
-  --grid-cols: 1;
-  --grid-rows: 1;
-}
-
-#grid {
-  display: grid;
-  grid-gap: 0;
-  grid-template-rows: repeat(var(--grid-rows), 2fr);
-  grid-template-columns: repeat(var(--grid-cols), 1fr);
-}
-
-.grid-item {
-  padding: 1em;
-  border: 1px solid #ff003c;
-  /*text-align: center;*/
-  background: #04daf6;
-  color: #ddd;
+  max-width: 500px;
+  margin: 0 auto;
 }

@@ -28,6 +28,13 @@ class Labirinto {
     labirinto.height = this.tamanho;
     labirinto.style.background = 'black';
     atual.visitado = true;
+
+    for (let l = 0; l < this.linhas; l++) {
+      for (let c = 0; c < this.colunas; c++) {
+        let grid = this.grid;
+        grid[l][c].show(this.tamanho, this.linhas, this.colunas);
+      }
+    }
   }
 }
 
@@ -47,38 +54,38 @@ class Celula {
   }
 
   drawTopParede(x, y, tamanho, colunas, linhas) {
-    ctx.inicioCaminho();
-    ctx.movendoPara(x, y);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
     ctx.lineTo(x + tamanho / colunas, y);
-    ctx.strok();
+    ctx.stroke();
   }
 
   drawDireitaParede(x, y, tamanho, colunas, linhas) {
-    ctx.inicioCaminho();
-    ctx.movendoPara(x + tamanho / colunas, y);
+    ctx.beginPath();
+    ctx.moveTo(x + tamanho / colunas, y);
     ctx.lineTo(x + tamanho / colunas, y + tamanho / linhas);
-    ctx.strok();
-  }
-
-  drawEsquerdaParede(x, y, tamanho, colunas, linhas) {
-    ctx.inicioCaminho();
-    ctx.movendoPara(x, y);
-    ctx.lineTo(x, y + tamanho / linhas);
-    ctx.strok();
+    ctx.stroke();
   }
 
   drawBotParede(x, y, tamanho, colunas, linhas) {
-    ctx.inicioCaminho();
-    ctx.movendoPara(x, y + tamanho / linhas);
+    ctx.beginPath();
+    ctx.moveTo(x, y + tamanho / linhas);
     ctx.lineTo(x + tamanho / colunas, y + tamanho / linhas);
-    ctx.strok();
+    ctx.stroke();
+  }
+
+  drawEsquerdaParede(x, y, tamanho, colunas, linhas) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y + tamanho / linhas);
+    ctx.stroke();
   }
 
   show(tamanho, linhas, colunas) {
     let x = (this.numColunas * tamanho) / colunas;
     let y = (this.numLinhas * tamanho) / linhas;
 
-    ctx.strokStyle = 'white';
+    ctx.strokeStyle = 'white';
     ctx.fillStyle = 'black';
     ctx.lineWidth = 2;
 
@@ -95,7 +102,7 @@ class Celula {
       this.drawEsquerdaParede(x, y, tamanho, colunas, linhas);
     }
     if (this.visitado) {
-      ctx.fillRect(x + 1, y + 1, size / columns - 2, size / rows - 2);
+      ctx.fillRect(x + 1, y + 1, tamanho / colunas - 2, tamanho / linhas - 2);
     }
   }
 }
