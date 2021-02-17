@@ -1,0 +1,74 @@
+/* Reset Geral */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  padding: 10px 60px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+/* Heade e Menu */
+header {
+  width: 100%;
+  background: #221b17;
+  color: #efe804;
+}
+
+header h1 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+}
+
+header button {
+  width: 280px;
+  height: 80px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+  margin: 20px;
+}
+
+#gerar {
+  background: #59a1cf;
+  color: #fff;
+}
+
+#buscar {
+  background: #e72cd1;
+  color: #fff;
+}
+
+/* Footer */
+
+footer {
+  width: 100%;
+  background: #efe804;
+  font-weight: bold;
+}
+
+footer p {
+  margin: 0 auto;
+}
+
+/* Responsividade */
+@media (max-width: 739px) {
+  .container {
+    flex-direction: column;
+    max-width: 300px;
+  }
+  header h1 {
+    margin-bottom: 30px;
+  }
+  header button {
+    margin: 10px;
+  }
+}
