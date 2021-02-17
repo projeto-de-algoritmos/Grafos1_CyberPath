@@ -22,6 +22,13 @@ class Labirinto {
     }
     atual = this.grid[0][0];
   }
+
+  draw() {
+    labirinto.width = this.tamanho;
+    labirinto.height = this.tamanho;
+    labirinto.style.background = 'black';
+    atual.visitado = true;
+  }
 }
 
 class Celula {
@@ -30,7 +37,7 @@ class Celula {
     this.numColunas = numColunas;
     this.paiGrid = paiGrid;
     this.paiTamanho = paiTamanho;
-    this.vitado = false;
+    this.visitado = false;
     this.paredes = {
       topParede: true,
       direitaParede: true,
@@ -38,7 +45,61 @@ class Celula {
       botParede: true,
     };
   }
+
+  drawTopParede(x, y, tamanho, colunas, linhas) {
+    ctx.inicioCaminho();
+    ctx.movendoPara(x, y);
+    ctx.lineTo(x + tamanho / colunas, y);
+    ctx.strok();
+  }
+
+  drawDireitaParede(x, y, tamanho, colunas, linhas) {
+    ctx.inicioCaminho();
+    ctx.movendoPara(x + tamanho / colunas, y);
+    ctx.lineTo(x + tamanho / colunas, y + tamanho / linhas);
+    ctx.strok();
+  }
+
+  drawEsquerdaParede(x, y, tamanho, colunas, linhas) {
+    ctx.inicioCaminho();
+    ctx.movendoPara(x, y);
+    ctx.lineTo(x, y + tamanho / linhas);
+    ctx.strok();
+  }
+
+  drawBotParede(x, y, tamanho, colunas, linhas) {
+    ctx.inicioCaminho();
+    ctx.movendoPara(x, y + tamanho / linhas);
+    ctx.lineTo(x + tamanho / colunas, y + tamanho / linhas);
+    ctx.strok();
+  }
+
+  show(tamanho, linhas, colunas) {
+    let x = (this.numColunas * tamanho) / colunas;
+    let y = (this.numLinhas * tamanho) / linhas;
+
+    ctx.strokStyle = 'white';
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 2;
+
+    if (this.paredes.topParede) {
+      this.drawTopParede(x, y, tamanho, colunas, linhas);
+    }
+    if (this.paredes.direitaParede) {
+      this.drawDireitaParede(x, y, tamanho, colunas, linhas);
+    }
+    if (this.paredes.botParede) {
+      this.drawBotParede(x, y, tamanho, colunas, linhas);
+    }
+    if (this.paredes.esquerdaParede) {
+      this.drawEsquerdaParede(x, y, tamanho, colunas, linhas);
+    }
+    if (this.visitado) {
+      ctx.fillRect(x + 1, y + 1, size / columns - 2, size / rows - 2);
+    }
+  }
 }
 
 let newLabirinto = new Labirinto(500, 10, 10);
 newLabirinto.setup();
+newLabirinto.draw();
