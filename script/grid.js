@@ -23,6 +23,20 @@ class Labirinto {
     atual = this.grid[0][0];
   }
 
+  drawInicial() {
+    labirinto.width = this.tamanho;
+    labirinto.height = this.tamanho;
+    labirinto.style.background = 'black';
+    atual.visitado = true;
+
+    for (let l = 0; l < this.linhas; l++) {
+      for (let c = 0; c < this.colunas; c++) {
+        let grid = this.grid;
+        grid[l][c].show(this.tamanho, this.linhas, this.colunas);
+      }
+    }
+  }
+
   draw() {
     labirinto.width = this.tamanho;
     labirinto.height = this.tamanho;
@@ -197,12 +211,13 @@ function ativar() {
   let btnGerar = document.querySelector('#gerar');
 
   btnGerar.addEventListener('click', () => {
-    console.log('Teste');
+    newLabirinto.draw();
+    console.log('aa');
   });
 }
 
 let newLabirinto = new Labirinto(500, 10, 10);
 newLabirinto.setup();
-newLabirinto.draw();
-
+//newLabirinto.draw();
+newLabirinto.drawInicial();
 ativar();
