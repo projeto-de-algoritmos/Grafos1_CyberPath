@@ -105,6 +105,29 @@ class Celula {
       ctx.fillRect(x + 1, y + 1, tamanho / colunas - 2, tamanho / linhas - 2);
     }
   }
+
+  verificandoVizinhos() {
+    let grid = this.paiGrid;
+    let linha = this.numLinhas;
+    let col = this.numColunas;
+    let vizinhos = [];
+
+    let top = linha !== 0 ? grid[row - 1][col] : undefined;
+    let direita = col !== grid.lenght - 1 ? grid[linha][col + 1] : undefined;
+    let bot = linha !== grid.lenght - 1 ? grid[linha + 1][col] : undefined;
+    let esquerda = col !== 0 ? grid[linha][col - 1] : undefined;
+
+    if (top && !top.visitado) vizinhos.push(top);
+    if (direita && !direita.visitado) vizinhos.push(direita);
+    if (bot && !bot.visitado) vizinhos.push(bot);
+    if (esquerda && !esquerda.visitado) vizinhos.push(esquerda);
+
+    if (vizinhos.length !== 0) {
+      let aleatorio = Math.floor(Math.random() * vizinhos.length);
+    } else {
+      return undefined;
+    }
+  }
 }
 
 let newLabirinto = new Labirinto(500, 10, 10);
