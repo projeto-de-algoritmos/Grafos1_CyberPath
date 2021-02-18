@@ -35,6 +35,33 @@ class Labirinto {
         grid[l][c].show(this.tamanho, this.linhas, this.colunas);
       }
     }
+
+    let proximo = atual.verificandoVizinhos();
+
+    if (proximo) {
+      proximo.visitado = true;
+
+      this.pilha.push(atual);
+
+      atual.destaque(this.colunas);
+
+      atual.removendoParedes(atual, proximo);
+
+      atual = proximo;
+    } else if (this.pilha.length > 0) {
+      //Backtraking
+      let celula = this.pilha.pop();
+      atual = celula;
+      atual.destaque(this.colunas);
+    }
+
+    if (this.pilha.length === 0) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      this.draw();
+    });
   }
 }
 
@@ -106,15 +133,37 @@ class Celula {
     }
   }
 
+  removendoParedes(celula1, celula2) {
+    let x = celula1.numColunas - celula2.numColunas;
+
+    if (x == 1) {
+      celula1.paredes.esquerdaParede = false;
+      celula2.paredes.direitaParede = false;
+    } else if (x == -1) {
+      celula1.paredes.direitaParede = false;
+      celula2.paredes.esquerdaParede = false;
+    }
+
+    let y = celula1.numLinhas - celula2.numLinhas;
+
+    if (y == 1) {
+      celula1.paredes.topParede = false;
+      celula2.paredes.botParede = false;
+    } else if (y == -1) {
+      celula1.paredes.botParede = false;
+      celula2.paredes.topParede = false;
+    }
+  }
+
   verificandoVizinhos() {
     let grid = this.paiGrid;
     let linha = this.numLinhas;
     let col = this.numColunas;
     let vizinhos = [];
 
-    let top = linha !== 0 ? grid[row - 1][col] : undefined;
-    let direita = col !== grid.lenght - 1 ? grid[linha][col + 1] : undefined;
-    let bot = linha !== grid.lenght - 1 ? grid[linha + 1][col] : undefined;
+    let top = linha !== 0 ? grid[linha - 1][col] : undefined;
+    let direita = col !== grid.length - 1 ? grid[linha][col + 1] : undefined;
+    let bot = linha !== grid.length - 1 ? grid[linha + 1][col] : undefined;
     let esquerda = col !== 0 ? grid[linha][col - 1] : undefined;
 
     if (top && !top.visitado) vizinhos.push(top);
@@ -124,9 +173,23 @@ class Celula {
 
     if (vizinhos.length !== 0) {
       let aleatorio = Math.floor(Math.random() * vizinhos.length);
+      return vizinhos[aleatorio];
     } else {
       return undefined;
     }
+  }
+
+  destaque(colunas) {
+    let x = (this.numColunas * this.paiTamanho) / colunas + 1;
+    let y = (this.numLinhas * this.paiTamanho) / colunas + 1;
+
+    ctx.fillStyle = 'red';
+    ctx.fillRect(
+      x,
+      y,
+      this.paiTamanho / colunas - 3,
+      this.paiTamanho / colunas - 3
+    );
   }
 }
 
