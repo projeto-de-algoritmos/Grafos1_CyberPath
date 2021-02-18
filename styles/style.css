@@ -64,17 +64,25 @@ footer p {
 /* Responsividade */
 @media (max-width: 739px) {
   .container {
-    flex-direction: column;
-    max-width: 300px;
+    flex-direction: row;
+  }
+  header {
+    justify-content: space-between;
+  }
+  .btn {
+    width: 12.5rem;
+    display: block;
   }
   header h1 {
-    margin-bottom: 30px;
+    display: block;
+    align-self: center;
   }
   header button {
     margin: 10px;
   }
   footer {
     position: relative;
+    text-align: center;
   }
 }
 

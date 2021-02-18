@@ -193,6 +193,16 @@ class Celula {
   }
 }
 
+function ativar() {
+  let btnGerar = document.querySelector('#gerar');
+
+  btnGerar.addEventListener('click', () => {
+    console.log('Teste');
+  });
+}
+
 let newLabirinto = new Labirinto(500, 10, 10);
 newLabirinto.setup();
 newLabirinto.draw();
+
+ativar();
