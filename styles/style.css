@@ -38,6 +38,10 @@ header button {
   margin: 20px;
 }
 
+body {
+  background: #221b17;
+}
+
 #gerar {
   background: #59a1cf;
   color: #fff;

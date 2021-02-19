@@ -26,7 +26,7 @@ class Labirinto {
   drawInicial() {
     labirinto.width = this.tamanho;
     labirinto.height = this.tamanho;
-    labirinto.style.background = 'black';
+    labirinto.style.background = '#221b17';
     atual.visitado = true;
 
     for (let l = 0; l < this.linhas; l++) {
@@ -40,7 +40,7 @@ class Labirinto {
   draw() {
     labirinto.width = this.tamanho;
     labirinto.height = this.tamanho;
-    labirinto.style.background = 'black';
+    labirinto.style.background = '#221b17';
     atual.visitado = true;
 
     for (let l = 0; l < this.linhas; l++) {
@@ -126,8 +126,8 @@ class Celula {
     let x = (this.numColunas * tamanho) / colunas;
     let y = (this.numLinhas * tamanho) / linhas;
 
-    ctx.strokeStyle = 'white';
-    ctx.fillStyle = 'black';
+    ctx.strokeStyle = '#efe804';
+    ctx.fillStyle = '#221b17';
     ctx.lineWidth = 2;
 
     if (this.paredes.topParede) {
@@ -197,7 +197,7 @@ class Celula {
     let x = (this.numColunas * this.paiTamanho) / colunas + 1;
     let y = (this.numLinhas * this.paiTamanho) / colunas + 1;
 
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = '#e72cd1';
     ctx.fillRect(
       x,
       y,
@@ -212,7 +212,14 @@ function ativar() {
 
   btnGerar.addEventListener('click', () => {
     newLabirinto.draw();
-    console.log('aa');
+  });
+}
+
+function buscar() {
+  let btnGerar = document.querySelector('#buscar');
+
+  btnGerar.addEventListener('click', () => {
+    console.log('Teste');
   });
 }
 
@@ -221,3 +228,4 @@ newLabirinto.setup();
 //newLabirinto.draw();
 newLabirinto.drawInicial();
 ativar();
+buscar();
