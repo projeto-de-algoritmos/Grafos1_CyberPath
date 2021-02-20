@@ -209,6 +209,27 @@ class Celula {
     };
   }
 
+  ParedeTop(aux){  
+    this.paredes["topParede"] = aux;
+  }
+  ParedeBot(aux){
+    this.paredes.botParede = aux;
+  }
+  ParedeDireita(aux){
+    this.paredes.direitaParede = aux;
+  }
+  ParedeEsquerda(aux){
+    this.paredes.esquerdaParede = aux;
+  }
+  get Paredes(){
+    return this.paredes;
+  }
+  get Visitados(){
+    return this.visitado;
+  }
+  setVisitad(bool){
+    this.visitado = bool;
+  }
   drawTopParede(x, y, tamanho, colunas, linhas) {
     ctx.beginPath();
     ctx.moveTo(x, y);
