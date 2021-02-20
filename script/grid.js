@@ -126,6 +126,9 @@ class Labirinto {
     this.pilha = [];
   }
 
+  getGrid(){
+     return this.grid;
+  }
   setup() {
     for (let l = 0; l < this.linhas; l++) {
       let linha = [];
@@ -208,7 +211,7 @@ class Celula {
       botParede: true,
     };
   }
-
+  
   ParedeTop(aux){  
     this.paredes["topParede"] = aux;
   }
@@ -352,16 +355,62 @@ function ativar() {
 }
 
 function buscar() {
-  let btnGerar = document.querySelector('#buscar');
+  let btnBuscar = document.querySelector('#buscar');
 
-  btnGerar.addEventListener('click', () => {
-    console.log('Teste');
-  });
+  btnBuscar.addEventListener('click', () => {
+    var teste = newLabirinto.getGrid();
+    //console.log(teste);
+    var graphLogic = new Graph(100);
+    for(var i = 0; i < 100 ; ++i){
+        graphLogic.addVertex(i);
+    }
+    for(var i = 0; i < 10 ; ++i){
+      for(var j = 0; j < 10 ; ++j ){
+          var parede = teste[i][j].Paredes;
+          var con , con1;
+        var con, con1;
+        if(teste[i][j].Visitados){
+          if(parede.topParede == false && teste[i-1][j].Visitados){
+            con = i*10 + j*1;
+            con1 = (i-1)*10 + j*1;
+            teste[i][j].ParedeTop(true);
+            graphLogic.addEdge(con, con1);
+            //console.log(con,con1)
+          }
+          if(parede.botParede == false && teste[i+1][j].Visitados){
+            con = i*10 + j*1;
+            con1 = (i+1)*10 + j*1;
+            teste[i][j].ParedeBot(true);
+            graphLogic.addEdge(con,con1);
+            //console.log(con,con1)
+          }
+          if(parede.direitaParede == false && teste[i][j+1].Visitados){
+            con = i*10 + j*1;
+            con1 = i*10 + (j+1)*1;
+            teste[i][j].ParedeDireita(true);
+            graphLogic.addEdge(con,con1);
+            //console.log(con,con1)
+          }
+          if(parede.esquerdaParede == false && teste[i][j-1].Visitados ){
+            con = i*10 + j*1;
+            con1 = i*10 + (j-1)*1;
+            teste[i][j].ParedeEsquerda(true);
+            graphLogic.addEdge(con,con1);
+            //console.log(con,con1)
+          }
+        }
+      }
+    }
+    console.log(graphLogic.findPath(0,99))
+    //graphLogic.print();
+    graphLogic.bfs(99);
+  })
 }
-
 let newLabirinto = new Labirinto(500, 10, 10);
 newLabirinto.setup();
 //newLabirinto.draw();
 newLabirinto.drawInicial();
 ativar();
 buscar();
+
+
