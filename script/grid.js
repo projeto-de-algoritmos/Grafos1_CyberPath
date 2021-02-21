@@ -180,14 +180,15 @@ class Labirinto {
       atual.removendoParedes(atual, proximo);
 
       atual = proximo;
-    } else if (this.pilha.length > 0) {
+    } 
+    else if (this.pilha.length > 0) {
       //Backtraking
       let celula = this.pilha.pop();
       atual = celula;
       atual.destaque(this.colunas);
-    }
-
+    }    
     if (this.pilha.length === 0) {
+      atual.destaque1(this.colunas);
       return;
     }
 
@@ -213,7 +214,7 @@ class Celula {
   }
   
   ParedeTop(aux){  
-    this.paredes["topParede"] = aux;
+    this.paredes.topParede = aux;
   }
   ParedeBot(aux){
     this.paredes.botParede = aux;
@@ -265,7 +266,7 @@ class Celula {
     let x = (this.numColunas * tamanho) / colunas;
     let y = (this.numLinhas * tamanho) / linhas;
 
-    ctx.strokeStyle = '#efe804';
+    ctx.strokeStyle = '#FF0000';
     ctx.fillStyle = '#221b17';
     ctx.lineWidth = 2;
 
@@ -336,7 +337,7 @@ class Celula {
     let x = (this.numColunas * this.paiTamanho) / colunas + 1;
     let y = (this.numLinhas * this.paiTamanho) / colunas + 1;
 
-    ctx.fillStyle = '#e72cd1';
+    ctx.fillStyle = '#7CF000';
     ctx.fillRect(
       x,
       y,
@@ -355,6 +356,7 @@ class Celula {
       this.paiTamanho / colunas - 3,
       this.paiTamanho / colunas - 3
     );
+  }
 }
 
 function ativar() {
@@ -362,7 +364,8 @@ function ativar() {
 
   btnGerar.addEventListener('click', () => {
     newLabirinto.draw();
-  });
+  })
+ 
 }
 function novo(){
   let btnNovo = document.querySelector('#new');
@@ -372,6 +375,7 @@ function novo(){
   })
 
 }
+
 function buscar() {
   let btnBuscar = document.querySelector('#buscar');
 
@@ -384,15 +388,18 @@ function buscar() {
   var ponto1, ponto2;
   ponto1 = parseInt((linha+coluna));
   ponto2 = parseInt((linha2+coluna2));
+
+
   btnBuscar.addEventListener('click', () => {
+
     var teste = newLabirinto.getGrid();
-    //console.log(teste);
     var graphLogic = new Graph(100);
     for(var i = 0; i < 100 ; ++i){
         graphLogic.addVertex(i);
     }
     for(var i = 0; i < 10 ; ++i){
       for(var j = 0; j < 10 ; ++j ){
+        if(!i && !j)teste[i][j].Visitados=false;
           var parede = teste[i][j].Paredes;
           var con , con1;
         var con, con1;
@@ -418,7 +425,7 @@ function buscar() {
             graphLogic.addEdge(con,con1);
             //console.log(con,con1)
           }
-          if(parede.esquerdaParede == false && teste[i][j-1].Visitados ){
+          if(parede.esquerdaParede == false && teste[i][j-1].Visitados){
             con = i*10 + j*1;
             con1 = i*10 + (j-1)*1;
             teste[i][j].ParedeEsquerda(true);
@@ -428,11 +435,13 @@ function buscar() {
         }
       }
     }
+    //console.log(graphLogic.findPath(0,99))
     paintPath(graphLogic.findPath(ponto1,ponto2));
     //graphLogic.print();
-    graphLogic.bfs(99);
+    //graphLogic.bfs(99);
   })
 }
+
 function paintPath(steps){
     let p, q;
     console.log(steps);
@@ -467,10 +476,11 @@ function paintPath(steps){
 
 let newLabirinto = new Labirinto(500, 10, 10);
 newLabirinto.setup();
-//newLabirinto.draw();
 newLabirinto.drawInicial();
 ativar();
 buscar();
 novo();
+
+
 
 
