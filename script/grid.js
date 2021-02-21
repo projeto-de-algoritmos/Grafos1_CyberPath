@@ -81,13 +81,16 @@ class Graph {
   }
   findPath(origem, destino) {
     if (origem == destino) {
-      return [origem, destino]
+      return [origem, destino];
     }
-    var fila = [origem],visitados = {}, ant = {}, aux = 0, steps ;
+
+    var fila = [origem], visitados = {}, ant = {}, aux = 0, steps ;
 
     while(aux < fila.length) {
+      
       var u = fila[aux];
       aux++;
+
       if (!this.listAdj.get(u)) {
         continue;
       }
@@ -96,21 +99,21 @@ class Graph {
       for(var i = 0; i < get_values.length; ++i) {
         var v = get_values[i];
         if (visitados[v]) {
-          continue;
+            continue;
         }
         visitados[v] = true;
         if (v === destino) { 
-          steps = [v];
-          while (u !== origem) {
+            steps = [v];
+            while (u !== origem) {
+              steps.push(u);
+              u = ant[u];
+            }
             steps.push(u);
-            u = ant[u];
-          }
-          steps.push(u);
-          steps.reverse();
-          return steps;
+            steps.reverse();
+            return steps;
         }
-        ant[v] = u;
-        fila.push(v);
+          ant[v] = u;
+          fila.push(v);
       }
     }
     return steps;
@@ -478,7 +481,7 @@ let newLabirinto = new Labirinto(500, 10, 10);
 newLabirinto.setup();
 newLabirinto.drawInicial();
 ativar();
-buscar();
+//buscar();
 novo();
 
 
