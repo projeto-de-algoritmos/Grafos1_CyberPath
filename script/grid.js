@@ -344,6 +344,17 @@ class Celula {
       this.paiTamanho / colunas - 3
     );
   }
+  destaque1(colunas) {
+    let x = (this.numColunas * this.paiTamanho) / colunas + 1;
+    let y = (this.numLinhas * this.paiTamanho) / colunas + 1;
+
+    ctx.fillStyle = '#221b17';
+    ctx.fillRect(
+      x,
+      y,
+      this.paiTamanho / colunas - 3,
+      this.paiTamanho / colunas - 3
+    );
 }
 
 function ativar() {
