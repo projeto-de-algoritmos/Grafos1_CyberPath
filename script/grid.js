@@ -364,7 +364,14 @@ function ativar() {
     newLabirinto.draw();
   });
 }
+function novo(){
+  let btnNovo = document.querySelector('#new');
 
+  btnNovo.addEventListener('click', () => {
+    location.reload(); 
+  })
+
+}
 function buscar() {
   let btnBuscar = document.querySelector('#buscar');
 
