@@ -375,6 +375,15 @@ function novo(){
 function buscar() {
   let btnBuscar = document.querySelector('#buscar');
 
+  var linha = String(document.querySelector('#linha').value-1);
+  var coluna = String(document.querySelector('#coluna').value-1);
+  var linha2 = String(document.querySelector('#linha2').value-1);
+  var coluna2 = String(document.querySelector('#coluna2').value-1);
+
+  
+  var ponto1, ponto2;
+  ponto1 = parseInt((linha+coluna));
+  ponto2 = parseInt((linha2+coluna2));
   btnBuscar.addEventListener('click', () => {
     var teste = newLabirinto.getGrid();
     //console.log(teste);
