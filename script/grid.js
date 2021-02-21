@@ -362,47 +362,8 @@ class Celula {
   }
 }
 
-function ativar() {
-  let btnGerar = document.querySelector('#gerar');
-
-  btnGerar.addEventListener('click', () => {
-    newLabirinto.draw();
-  });
-}
-
-function buscarAtiva() {
-  let btnGerar = document.querySelector('#buscar');
-
-  btnGerar.addEventListener('click', () => {
-    buscar();
-  });
-}
-
-function novo() {
-  let btnNovo = document.querySelector('#new');
-
-  btnNovo.addEventListener('click', () => {
-    location.reload();
-  });
-}
-
-/*
-function destaqueDestino() {
-  ctx.fillStyle = 'white';
-  ctx.fillRect(9, 9);
-}*/
-
 function buscar() {
-  //let btnBuscar = document.querySelector('#buscar');
-  /*
-  var linha = String(document.querySelector('#linha').value - 1);
-  var coluna = String(document.querySelector('#coluna').value - 1);
-  var linha2 = String(document.querySelector('#linha2').value - 1);
-  var coluna2 = String(document.querySelector('#coluna2').value - 1);
-*/
   var ponto1, ponto2;
-
-  //let aleatorio = Math.floor(Math.random() * vizinhos.length);
 
   let min = 0;
   let max = 99;
@@ -412,17 +373,6 @@ function buscar() {
   ponto1 = parseInt(0);
   ponto2 = parseInt(aleatorio);
 
-  console.log(ponto1);
-  console.log(ponto2);
-
-  /*
-  ponto1 = parseInt(linha + coluna);
-  ponto2 = parseInt(linha2 + coluna2);
-
-  console.log(ponto1);
-  console.log(ponto2);*/
-
-  //btnBuscar.addEventListener('click', () => {
   var teste = newLabirinto.getGrid();
 
   var graphLogic = new Graph(100);
@@ -471,20 +421,17 @@ function buscar() {
   }
   paintPath(graphLogic.findPath(ponto1, ponto2));
   paintDestino(graphLogic.findPath(ponto1, ponto2));
-  //graphLogic.print();
-  //graphLogic.bfs(99);
-  //});
 }
 
 function paintPath(steps) {
   let p, q;
-  console.log(steps);
+  //console.log(steps);
   var counter = -1;
   var i = setInterval(function () {
     counter++;
     if (counter === steps.length) {
       clearInterval(i);
-      paint2(p, q);
+      paintCheack(p, q);
     }
     if (steps[i] < 10) {
       p = (steps[counter] * 500) / 10 + 1;
@@ -501,7 +448,7 @@ function paintPath(steps) {
     ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
   }
 
-  function paint2(p, q) {
+  function paintCheack(p, q) {
     ctx.fillStyle = '#7CF000';
     ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
   }
@@ -515,7 +462,7 @@ function paintDestino(steps) {
     counter++;
     if (counter === steps.length) {
       clearInterval(i);
-      paint2(p, q);
+      paintDestino(p, q);
     }
     if (steps[i] < 10) {
       p = (steps[counter] * 500) / 10 + 1;
@@ -526,10 +473,36 @@ function paintDestino(steps) {
     }
   });
 
-  function paint2(p, q) {
-    ctx.fillStyle = 'white';
+  function paintDestino(p, q) {
+    ctx.fillStyle = '#efe804';
     ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
   }
+}
+
+/* Botões */
+
+function ativar() {
+  let btnGerar = document.querySelector('#gerar');
+
+  btnGerar.addEventListener('click', () => {
+    newLabirinto.draw();
+  });
+}
+
+function buscarAtiva() {
+  let btnGerar = document.querySelector('#buscar');
+
+  btnGerar.addEventListener('click', () => {
+    buscar();
+  });
+}
+
+function novo() {
+  let btnNovo = document.querySelector('#new');
+
+  btnNovo.addEventListener('click', () => {
+    location.reload();
+  });
 }
 
 let newLabirinto = new Labirinto(500, 10, 10);
