@@ -17,7 +17,7 @@
 header {
   width: 100%;
   background: #221b17;
-  color: #FF0000;
+  color: #efe804;
 }
 
 header h1 {
@@ -52,7 +52,7 @@ body {
   color: #fff;
 }
 #new {
-  background: #32CD32;
+  background: #32cd32;
   color: #fff;
 }
 
@@ -60,7 +60,7 @@ body {
 
 footer {
   width: 100%;
-  background: #FF0000;
+  background: #efe804;
   font-weight: bold;
   padding: 0.2rem;
 }
@@ -81,7 +81,7 @@ footer p {
     width: 12.5rem;
     display: block;
   }
-  .input{
+  .input {
     width: 12.5rem;
     display: block;
     text-align: right;

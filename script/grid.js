@@ -1,93 +1,93 @@
 let labirinto = document.querySelector('.labirinto');
 let ctx = labirinto.getContext('2d');
 let atual;
+let destino;
 
 class Graph {
-
-  constructor(vertex){
-      this.vertex = vertex;
-      this.listAdj = new Map();   
+  constructor(vertex) {
+    this.vertex = vertex;
+    this.listAdj = new Map();
   }
 
-  getKeys(){
-      return this.listAdj.keys();
-  }
-  getValues(i){
-      return this.listAdj.get(i);
-  }
-  addVertex(v){   
-      this.listAdj.set(v, []);
-  }
-  addEdge(v, w){
-      this.listAdj.get(v).push(w);
-      //this.listAdj.get(w).push(v);
-  }
-  print(){
-     var vertex = this.listAdj.keys();
-     console.log("VERTEX -> LIST\n")
-      for (var i of vertex)
-      {
-          var listAdj = this.listAdj.get(i);
-          var sum = "";
-          for (var j=0; j<listAdj.length; ++j)
-          {
-              sum += listAdj[j];
-              if(j!=listAdj.length-1)sum+=" && ";
-              
-          }
-          console.log(i + " -> " + sum);
-      }
-  }
-  get Keys(){
+  getKeys() {
     return this.listAdj.keys();
   }
-  bfs(v){
-      var fila = [];
-      var visitados = []; // vetor de visitados
-  
-      for(var i = 0; i < this.vertex; ++i)visitados[i] = false;
-
-      fila.push(v);
-      visitados[v] = true; // marca como visitado
-  
-      while(fila.length!=0){
-              var getElement = fila.shift();
-              console.log(getElement); // Vertice atual 
-              var get_values = this.listAdj.get(getElement); // Get adjList
-              for(var i in get_values){
-                  var value = get_values[i];
-                  if(!visitados[value]){
-                      //console.log(getElement); 
-                      visitados[value] = true;
-                      fila.push(value);
-                  }
-              } 
-      }
-  } 
-  dfs (v){
-      var visitados = [];
-      this.path(v, visitados);
+  getValues(i) {
+    return this.listAdj.get(i);
   }
-  path(v, visitados){
-      visitados[v] = true;
-      console.log(v); // Vertice atual
-
-      var get_values = this.listAdj.get(v);
-
-      for(var w in get_values){
-          var value = get_values[w];
-          if(!visitados[value])this.path(value, visitados)
+  addVertex(v) {
+    this.listAdj.set(v, []);
+  }
+  addEdge(v, w) {
+    this.listAdj.get(v).push(w);
+    //this.listAdj.get(w).push(v);
+  }
+  print() {
+    var vertex = this.listAdj.keys();
+    console.log('VERTEX -> LIST\n');
+    for (var i of vertex) {
+      var listAdj = this.listAdj.get(i);
+      var sum = '';
+      for (var j = 0; j < listAdj.length; ++j) {
+        sum += listAdj[j];
+        if (j != listAdj.length - 1) sum += ' && ';
       }
+      console.log(i + ' -> ' + sum);
+    }
+  }
+  get Keys() {
+    return this.listAdj.keys();
+  }
+  bfs(v) {
+    var fila = [];
+    var visitados = []; // vetor de visitados
+
+    for (var i = 0; i < this.vertex; ++i) visitados[i] = false;
+
+    fila.push(v);
+    visitados[v] = true; // marca como visitado
+
+    while (fila.length != 0) {
+      var getElement = fila.shift();
+      console.log(getElement); // Vertice atual
+      var get_values = this.listAdj.get(getElement); // Get adjList
+      for (var i in get_values) {
+        var value = get_values[i];
+        if (!visitados[value]) {
+          //console.log(getElement);
+          visitados[value] = true;
+          fila.push(value);
+        }
+      }
+    }
+  }
+  dfs(v) {
+    var visitados = [];
+    this.path(v, visitados);
+  }
+  path(v, visitados) {
+    visitados[v] = true;
+    console.log(v); // Vertice atual
+
+    var get_values = this.listAdj.get(v);
+
+    for (var w in get_values) {
+      var value = get_values[w];
+      if (!visitados[value]) this.path(value, visitados);
+    }
   }
   findPath(origem, destino) {
     if (origem == destino) {
       return [origem, destino];
     }
 
-    var fila = [origem], visitados = {}, ant = {}, aux = 0, steps ;
+    var fila = [origem],
+      visitados = {},
+      ant = {},
+      aux = 0,
+      steps;
 
-    while(aux < fila.length) {
-      
+    while (aux < fila.length) {
       var u = fila[aux];
       aux++;
 
@@ -96,29 +96,28 @@ class Graph {
       }
 
       var get_values = this.listAdj.get(u);
-      for(var i = 0; i < get_values.length; ++i) {
+      for (var i = 0; i < get_values.length; ++i) {
         var v = get_values[i];
         if (visitados[v]) {
-            continue;
+          continue;
         }
         visitados[v] = true;
-        if (v === destino) { 
-            steps = [v];
-            while (u !== origem) {
-              steps.push(u);
-              u = ant[u];
-            }
+        if (v === destino) {
+          steps = [v];
+          while (u !== origem) {
             steps.push(u);
-            steps.reverse();
-            return steps;
+            u = ant[u];
+          }
+          steps.push(u);
+          steps.reverse();
+          return steps;
         }
-          ant[v] = u;
-          fila.push(v);
+        ant[v] = u;
+        fila.push(v);
       }
     }
     return steps;
   }
-
 }
 class Labirinto {
   constructor(tamanho, linhas, colunas) {
@@ -129,8 +128,8 @@ class Labirinto {
     this.pilha = [];
   }
 
-  getGrid(){
-     return this.grid;
+  getGrid() {
+    return this.grid;
   }
   setup() {
     for (let l = 0; l < this.linhas; l++) {
@@ -142,6 +141,7 @@ class Labirinto {
       this.grid.push(linha);
     }
     atual = this.grid[0][0];
+    this.grid[this.linhas - 1][this.colunas - 1].destino = true;
   }
 
   drawInicial() {
@@ -183,13 +183,12 @@ class Labirinto {
       atual.removendoParedes(atual, proximo);
 
       atual = proximo;
-    } 
-    else if (this.pilha.length > 0) {
+    } else if (this.pilha.length > 0) {
       //Backtraking
       let celula = this.pilha.pop();
       atual = celula;
       atual.destaque(this.colunas);
-    }    
+    }
     if (this.pilha.length === 0) {
       atual.destaque1(this.colunas);
       return;
@@ -214,27 +213,28 @@ class Celula {
       esquerdaParede: true,
       botParede: true,
     };
+    this.destino = false;
   }
-  
-  ParedeTop(aux){  
+
+  ParedeTop(aux) {
     this.paredes.topParede = aux;
   }
-  ParedeBot(aux){
+  ParedeBot(aux) {
     this.paredes.botParede = aux;
   }
-  ParedeDireita(aux){
+  ParedeDireita(aux) {
     this.paredes.direitaParede = aux;
   }
-  ParedeEsquerda(aux){
+  ParedeEsquerda(aux) {
     this.paredes.esquerdaParede = aux;
   }
-  get Paredes(){
+  get Paredes() {
     return this.paredes;
   }
-  get Visitados(){
+  get Visitados() {
     return this.visitado;
   }
-  setVisitad(bool){
+  setVisitad(bool) {
     this.visitado = bool;
   }
   drawTopParede(x, y, tamanho, colunas, linhas) {
@@ -269,7 +269,7 @@ class Celula {
     let x = (this.numColunas * tamanho) / colunas;
     let y = (this.numLinhas * tamanho) / linhas;
 
-    ctx.strokeStyle = '#FF0000';
+    ctx.strokeStyle = 'white';
     ctx.fillStyle = '#221b17';
     ctx.lineWidth = 2;
 
@@ -367,128 +367,174 @@ function ativar() {
 
   btnGerar.addEventListener('click', () => {
     newLabirinto.draw();
-  })
- 
+  });
 }
 
-function novo(){
+function buscarAtiva() {
+  let btnGerar = document.querySelector('#buscar');
+
+  btnGerar.addEventListener('click', () => {
+    buscar();
+  });
+}
+
+function novo() {
   let btnNovo = document.querySelector('#new');
 
   btnNovo.addEventListener('click', () => {
-    location.reload(); 
-  })
-
+    location.reload();
+  });
 }
 
+/*
+function destaqueDestino() {
+  ctx.fillStyle = 'white';
+  ctx.fillRect(9, 9);
+}*/
+
 function buscar() {
-  let btnBuscar = document.querySelector('#buscar');
-
-  var linha = String(document.querySelector('#linha').value-1);
-  var coluna = String(document.querySelector('#coluna').value-1);
-  var linha2 = String(document.querySelector('#linha2').value-1);
-  var coluna2 = String(document.querySelector('#coluna2').value-1);
-
+  //let btnBuscar = document.querySelector('#buscar');
+  /*
+  var linha = String(document.querySelector('#linha').value - 1);
+  var coluna = String(document.querySelector('#coluna').value - 1);
+  var linha2 = String(document.querySelector('#linha2').value - 1);
+  var coluna2 = String(document.querySelector('#coluna2').value - 1);
+*/
   var ponto1, ponto2;
 
-  ponto1 = parseInt((linha+coluna));
-  ponto2 = parseInt((linha2+coluna2));
+  //let aleatorio = Math.floor(Math.random() * vizinhos.length);
 
+  let min = 0;
+  let max = 99;
 
-  btnBuscar.addEventListener('click', () => {
+  let aleatorio = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    var teste = newLabirinto.getGrid();
+  ponto1 = parseInt(0);
+  ponto2 = parseInt(aleatorio);
 
-    var graphLogic = new Graph(100);
+  console.log(ponto1);
+  console.log(ponto2);
 
-    for(var i = 0; i < 100 ; ++i){
-        graphLogic.addVertex(i);
-    }
+  /*
+  ponto1 = parseInt(linha + coluna);
+  ponto2 = parseInt(linha2 + coluna2);
 
-    for(var i = 0; i < 10 ; ++i){
+  console.log(ponto1);
+  console.log(ponto2);*/
 
-      for(var j = 0; j < 10 ; ++j ){
+  //btnBuscar.addEventListener('click', () => {
+  var teste = newLabirinto.getGrid();
 
-        if(!i && !j)teste[i][j].Visitados=false;
-        var parede = teste[i][j].Paredes;
-        var con , con1;
+  var graphLogic = new Graph(100);
 
-        if(teste[i][j].Visitados){
-          if(parede.topParede == false && teste[i-1][j].Visitados){
-            con = i*10 + j*1;
-            con1 = (i-1)*10 + j*1;
-            teste[i][j].ParedeTop(true);
-            graphLogic.addEdge(con, con1);
-            //console.log(con,con1)
-          }
-          if(parede.botParede == false && teste[i+1][j].Visitados){
-            con = i*10 + j*1;
-            con1 = (i+1)*10 + j*1;
-            teste[i][j].ParedeBot(true);
-            graphLogic.addEdge(con,con1);
-            //console.log(con,con1)
-          }
-          if(parede.direitaParede == false && teste[i][j+1].Visitados){
-            con = i*10 + j*1;
-            con1 = i*10 + (j+1)*1;
-            teste[i][j].ParedeDireita(true);
-            graphLogic.addEdge(con,con1);
-            //console.log(con,con1)
-          }
-          if(parede.esquerdaParede == false && teste[i][j-1].Visitados){
-            con = i*10 + j*1;
-            con1 = i*10 + (j-1)*1;
-            teste[i][j].ParedeEsquerda(true);
-            graphLogic.addEdge(con,con1);
-            //console.log(con,con1)
-          }
+  for (var i = 0; i < 100; ++i) {
+    graphLogic.addVertex(i);
+  }
+
+  for (var i = 0; i < 10; ++i) {
+    for (var j = 0; j < 10; ++j) {
+      if (!i && !j) teste[i][j].Visitados = false;
+      var parede = teste[i][j].Paredes;
+      var con, con1;
+
+      if (teste[i][j].Visitados) {
+        if (parede.topParede == false && teste[i - 1][j].Visitados) {
+          con = i * 10 + j * 1;
+          con1 = (i - 1) * 10 + j * 1;
+          teste[i][j].ParedeTop(true);
+          graphLogic.addEdge(con, con1);
+          //console.log(con,con1)
+        }
+        if (parede.botParede == false && teste[i + 1][j].Visitados) {
+          con = i * 10 + j * 1;
+          con1 = (i + 1) * 10 + j * 1;
+          teste[i][j].ParedeBot(true);
+          graphLogic.addEdge(con, con1);
+          //console.log(con,con1)
+        }
+        if (parede.direitaParede == false && teste[i][j + 1].Visitados) {
+          con = i * 10 + j * 1;
+          con1 = i * 10 + (j + 1) * 1;
+          teste[i][j].ParedeDireita(true);
+          graphLogic.addEdge(con, con1);
+          //console.log(con,con1)
+        }
+        if (parede.esquerdaParede == false && teste[i][j - 1].Visitados) {
+          con = i * 10 + j * 1;
+          con1 = i * 10 + (j - 1) * 1;
+          teste[i][j].ParedeEsquerda(true);
+          graphLogic.addEdge(con, con1);
+          //console.log(con,con1)
         }
       }
     }
-    paintPath(graphLogic.findPath(ponto1,ponto2));
-    //graphLogic.print();
-    //graphLogic.bfs(99);
-  })
+  }
+  paintPath(graphLogic.findPath(ponto1, ponto2));
+  paintDestino(graphLogic.findPath(ponto1, ponto2));
+  //graphLogic.print();
+  //graphLogic.bfs(99);
+  //});
 }
 
-function paintPath(steps){
-    let p, q;
-    console.log(steps);
-    var counter = -1;
-    var i = setInterval(function(){
-        counter++;
-        if(counter === steps.length) {
-            clearInterval(i);
-        }
-        if(steps[i]<10){
-            p = ((steps[counter]) * 500) / 10 + 1;
-            q = (i/10 * 500) / 10 + 1;
-        }
-        else{
-            p = ((parseInt((steps[counter]%10))) * 500) / 10 + 1;
-            q = (parseInt((steps[counter]/10)) * 500) / 10 + 1;
-        } 
-        paint(p,q); 
-    }, 200);
-     
-  
-    function paint(p,q) {
-      ctx.fillStyle = '#7CF000';
-      ctx.fillRect(
-          p,
-          q,
-          500 / 10 - 3,
-          500 / 10 - 3
-      );
+function paintPath(steps) {
+  let p, q;
+  console.log(steps);
+  var counter = -1;
+  var i = setInterval(function () {
+    counter++;
+    if (counter === steps.length) {
+      clearInterval(i);
+      paint2(p, q);
     }
+    if (steps[i] < 10) {
+      p = (steps[counter] * 500) / 10 + 1;
+      q = ((i / 10) * 500) / 10 + 1;
+    } else {
+      p = (parseInt(steps[counter] % 10) * 500) / 10 + 1;
+      q = (parseInt(steps[counter] / 10) * 500) / 10 + 1;
+    }
+    paint(p, q);
+  }, 200);
+
+  function paint(p, q) {
+    ctx.fillStyle = '#e72cd1';
+    ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
+  }
+
+  function paint2(p, q) {
+    ctx.fillStyle = '#7CF000';
+    ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
+  }
+}
+
+function paintDestino(steps) {
+  let p, q;
+  //  console.log(steps);
+  var counter = -1;
+  var i = setInterval(function () {
+    counter++;
+    if (counter === steps.length) {
+      clearInterval(i);
+      paint2(p, q);
+    }
+    if (steps[i] < 10) {
+      p = (steps[counter] * 500) / 10 + 1;
+      q = ((i / 10) * 500) / 10 + 1;
+    } else {
+      p = (parseInt(steps[counter] % 10) * 500) / 10 + 1;
+      q = (parseInt(steps[counter] / 10) * 500) / 10 + 1;
+    }
+  });
+
+  function paint2(p, q) {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
+  }
 }
 
 let newLabirinto = new Labirinto(500, 10, 10);
 newLabirinto.setup();
 newLabirinto.drawInicial();
 ativar();
-//buscar();
 novo();
-
-
-
-
+buscarAtiva();
