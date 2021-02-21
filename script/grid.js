@@ -370,6 +370,7 @@ function ativar() {
   })
  
 }
+
 function novo(){
   let btnNovo = document.querySelector('#new');
 
@@ -387,8 +388,8 @@ function buscar() {
   var linha2 = String(document.querySelector('#linha2').value-1);
   var coluna2 = String(document.querySelector('#coluna2').value-1);
 
-  
   var ponto1, ponto2;
+
   ponto1 = parseInt((linha+coluna));
   ponto2 = parseInt((linha2+coluna2));
 
@@ -396,16 +397,21 @@ function buscar() {
   btnBuscar.addEventListener('click', () => {
 
     var teste = newLabirinto.getGrid();
+
     var graphLogic = new Graph(100);
+
     for(var i = 0; i < 100 ; ++i){
         graphLogic.addVertex(i);
     }
+
     for(var i = 0; i < 10 ; ++i){
+
       for(var j = 0; j < 10 ; ++j ){
+
         if(!i && !j)teste[i][j].Visitados=false;
-          var parede = teste[i][j].Paredes;
-          var con , con1;
-        var con, con1;
+        var parede = teste[i][j].Paredes;
+        var con , con1;
+
         if(teste[i][j].Visitados){
           if(parede.topParede == false && teste[i-1][j].Visitados){
             con = i*10 + j*1;
@@ -438,7 +444,6 @@ function buscar() {
         }
       }
     }
-    //console.log(graphLogic.findPath(0,99))
     paintPath(graphLogic.findPath(ponto1,ponto2));
     //graphLogic.print();
     //graphLogic.bfs(99);
@@ -448,8 +453,8 @@ function buscar() {
 function paintPath(steps){
     let p, q;
     console.log(steps);
-      var counter = -1;
-      var i = setInterval(function(){
+    var counter = -1;
+    var i = setInterval(function(){
         counter++;
         if(counter === steps.length) {
             clearInterval(i);
@@ -463,7 +468,7 @@ function paintPath(steps){
             q = (parseInt((steps[counter]/10)) * 500) / 10 + 1;
         } 
         paint(p,q); 
-      }, 200);
+    }, 200);
      
   
     function paint(p,q) {
