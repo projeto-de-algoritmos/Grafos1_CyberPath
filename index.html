@@ -15,13 +15,29 @@
         <div class="btn">
           <button id="gerar">Gerar Labirinto</button>
           <button id="buscar">Buscar</button>
+          <button id="new">Novo/Atualizar</button>
+        </div>
+        <div class="input">
+          <label>Origem</label><br><br>
+          <label>Linha</label>
+          <input type="number" id="linha"placeholder="1-10"><br>
+          <label>Coluna</label>
+          <input type="number" id='coluna'placeholder="1-10"><br><br>
+          <label>Destino</label><br><br>
+          <label>Linha</label>
+          <input type="number" id="linha2"placeholder="1-10"><br>
+          <label>Coluna</label>
+          <input type="number" id='coluna2'placeholder="1-10"><br>
+          <input type="submit" value="Submit" onclick="buscar()"/><br/>
+        </div>
+        <div id="Atual">
+          
         </div>
       </div>
     </header>
     <section class="grid-container">
       <canvas class="labirinto"> </canvas>
-    </section>
-
+    </section>  
     <footer>
       <div class="container foot">
         <p>
