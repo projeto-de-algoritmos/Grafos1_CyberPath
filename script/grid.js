@@ -428,16 +428,49 @@ function buscar() {
         }
       }
     }
-    console.log(graphLogic.findPath(0,99))
+    paintPath(graphLogic.findPath(ponto1,ponto2));
     //graphLogic.print();
     graphLogic.bfs(99);
   })
 }
+function paintPath(steps){
+    let p, q;
+    console.log(steps);
+      var counter = -1;
+      var i = setInterval(function(){
+        counter++;
+        if(counter === steps.length) {
+            clearInterval(i);
+        }
+        if(steps[i]<10){
+            p = ((steps[counter]) * 500) / 10 + 1;
+            q = (i/10 * 500) / 10 + 1;
+        }
+        else{
+            p = ((parseInt((steps[counter]%10))) * 500) / 10 + 1;
+            q = (parseInt((steps[counter]/10)) * 500) / 10 + 1;
+        } 
+        paint(p,q); 
+      }, 200);
+     
+  
+    function paint(p,q) {
+      ctx.fillStyle = '#7CF000';
+      ctx.fillRect(
+          p,
+          q,
+          500 / 10 - 3,
+          500 / 10 - 3
+      );
+    }
+}
+
 let newLabirinto = new Labirinto(500, 10, 10);
 newLabirinto.setup();
 //newLabirinto.draw();
 newLabirinto.drawInicial();
 ativar();
 buscar();
+novo();
 
 
