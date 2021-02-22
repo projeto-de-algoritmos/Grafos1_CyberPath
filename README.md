@@ -1,21 +1,6 @@
-**!! Atenção: Renomeie o seu repositório para (Tema)_(NomeDoProjeto). !!** 
+# CyberPath
 
-Temas:
- - Grafos1
- - Grafos2
- - PD
- - D&C
- - Greed
- - Final 
- 
- **!! *Não coloque os nomes dos alunos no título do repositório*. Exemplo de título correto: Grafos2_Labirinto-do-Minotauro !!**
- 
- (Apague essa seção)
-
-# NomedoProjeto
-
-**Número da Lista**: X<br>
-**Conteúdo da Disciplina**: XXXXXXXXXX<br>
+**Conteúdo da Disciplina**: Grafos1<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -24,18 +9,21 @@ Temas:
 | 17/0020525  |  Pedro Henrique de Lima Malaquias |
 
 ## Sobre 
-Descreva os objetivos do seu projeto e como ele funciona. 
+ Gerar um labirintoa a partir do uso do algoritomo DFS. Ao aplicar a buscar é gerado um destino aleatorio no labirinto. A busca utiliza o algoritimo BSF para encontar o menor caminho até esse destino.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![](img/TelaInicia.png)
+![](img/buscarBfs.png)
+![](img/gerarPath.png)
 
 ## Instalação 
-**Linguagem**: xxxxxx<br>
-**Framework**: (caso exista)<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
+**Linguagem**:JavaScript<br>
+* Internet
+* Navegador
+* VScode com o plugin Live Server
+* Terminal
+* Caso não use o VScode: Basta abrir o arquivo index.html pelo navegador.
 
 ## Uso 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
+Inicie o live server ou abra o arquivo inde.html em algum navegador de preferência.
 
-## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
