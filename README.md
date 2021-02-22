@@ -9,7 +9,7 @@
 | 17/0020525  |  Pedro Henrique de Lima Malaquias |
 
 ## Sobre 
- Gerar um labirintoa a partir do uso do algoritomo DFS. Ao aplicar a buscar é gerado um destino aleatorio no labirinto. A busca utiliza o algoritimo BSF para encontar o menor caminho até esse destino. O projeto se encontra hopesdado neste link <a href="https://cyberpath.netlify.app" target="_top">link</a>
+ Gerar um labirintoa a partir do uso do algoritomo DFS. Ao aplicar a buscar é gerado um destino aleatorio no labirinto. A busca utiliza o algoritimo BSF para encontar o menor caminho até esse destino. O projeto se encontra hopesdado neste <a href="https://cyberpath.netlify.app" target="_top">link</a>.
  
 
 ## Screenshots
