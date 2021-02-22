@@ -191,6 +191,7 @@ class Labirinto {
     }
     if (this.pilha.length === 0) {
       atual.destaque1(this.colunas);
+      atual.destaqueOrigem(this.colunas);
       return;
     }
 
@@ -360,6 +361,19 @@ class Celula {
       this.paiTamanho / colunas - 3
     );
   }
+
+  destaqueOrigem(colunas) {
+    let x = (this.numColunas * this.paiTamanho) / colunas + 1;
+    let y = (this.numLinhas * this.paiTamanho) / colunas + 1;
+
+    ctx.fillStyle = 'red';
+    ctx.fillRect(
+      x,
+      y,
+      this.paiTamanho / colunas - 3,
+      this.paiTamanho / colunas - 3
+    );
+  }
 }
 
 function buscar() {
@@ -426,7 +440,7 @@ function buscar() {
 function paintPath(steps) {
   let p, q;
   //console.log(steps);
-  var counter = -1;
+  var counter = 0;
   var i = setInterval(function () {
     counter++;
     if (counter === steps.length) {
