@@ -126,6 +126,7 @@ class Graph {
   }
 }
 class Labirinto {
+  
   constructor(tamanho, linhas, colunas) {
     this.tamanho = tamanho;
     this.linhas = linhas;
@@ -195,6 +196,7 @@ class Labirinto {
       atual = celula;
       atual.destaque(this.colunas);
     }
+
     if (this.pilha.length === 0) {
       atual.destaque1(this.colunas);
       atual.destaqueOrigem(this.colunas);
@@ -208,6 +210,7 @@ class Labirinto {
 }
 
 class Celula {
+
   constructor(numLinhas, numColunas, paiGrid, paiTamanho) {
     this.numLinhas = numLinhas;
     this.numColunas = numColunas;
@@ -320,6 +323,7 @@ class Celula {
   }
 
   verificandoVizinhos() {
+
     let grid = this.paiGrid;
     let linha = this.numLinhas;
     let col = this.numColunas;
@@ -341,6 +345,7 @@ class Celula {
     } else {
       return undefined;
     }
+    
   }
 
   destaque(colunas) {
