@@ -4,6 +4,7 @@ let atual;
 let destino;
 
 class Graph {
+
   constructor(vertex) {
     this.vertex = vertex;
     this.listAdj = new Map();
@@ -20,7 +21,6 @@ class Graph {
   }
   addEdge(v, w) {
     this.listAdj.get(v).push(w);
-    //this.listAdj.get(w).push(v);
   }
   print() {
     var vertex = this.listAdj.keys();
@@ -38,6 +38,8 @@ class Graph {
   get Keys() {
     return this.listAdj.keys();
   }
+  //bfs
+
   bfs(v) {
     var fila = [];
     var visitados = []; // vetor de visitados
@@ -61,6 +63,8 @@ class Graph {
       }
     }
   }
+  //dfs
+
   dfs(v) {
     var visitados = [];
     this.path(v, visitados);
@@ -76,16 +80,18 @@ class Graph {
       if (!visitados[value]) this.path(value, visitados);
     }
   }
+  //findPath
+
   findPath(origem, destino) {
     if (origem == destino) {
-      return [origem, destino];
+      return [origem, origem];
     }
 
     var fila = [origem],
       visitados = {},
       ant = {},
       aux = 0,
-      steps;
+      steps = [];
 
     while (aux < fila.length) {
       var u = fila[aux];
@@ -120,6 +126,7 @@ class Graph {
   }
 }
 class Labirinto {
+  
   constructor(tamanho, linhas, colunas) {
     this.tamanho = tamanho;
     this.linhas = linhas;
@@ -189,6 +196,7 @@ class Labirinto {
       atual = celula;
       atual.destaque(this.colunas);
     }
+
     if (this.pilha.length === 0) {
       atual.destaque1(this.colunas);
       atual.destaqueOrigem(this.colunas);
@@ -202,6 +210,7 @@ class Labirinto {
 }
 
 class Celula {
+
   constructor(numLinhas, numColunas, paiGrid, paiTamanho) {
     this.numLinhas = numLinhas;
     this.numColunas = numColunas;
@@ -314,6 +323,7 @@ class Celula {
   }
 
   verificandoVizinhos() {
+
     let grid = this.paiGrid;
     let linha = this.numLinhas;
     let col = this.numColunas;
@@ -335,6 +345,7 @@ class Celula {
     } else {
       return undefined;
     }
+    
   }
 
   destaque(colunas) {
@@ -376,10 +387,13 @@ class Celula {
   }
 }
 
+// BUSCANDO CAMINHOS NO LABIRINTO
+
 function buscar() {
+
   var ponto1, ponto2;
 
-  let min = 0;
+  let min = 2;
   let max = 99;
 
   let aleatorio = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -387,103 +401,97 @@ function buscar() {
   ponto1 = parseInt(0);
   ponto2 = parseInt(aleatorio);
 
-  var teste = newLabirinto.getGrid();
+  var matrixLogic = newLabirinto.getGrid();
 
   var graphLogic = new Graph(100);
 
   for (var i = 0; i < 100; ++i) {
-    graphLogic.addVertex(i);
+      graphLogic.addVertex(i);
   }
 
   for (var i = 0; i < 10; ++i) {
     for (var j = 0; j < 10; ++j) {
-      if (!i && !j) teste[i][j].Visitados = false;
-      var parede = teste[i][j].Paredes;
-      var con, con1;
 
-      if (teste[i][j].Visitados) {
-        if (parede.topParede == false && teste[i - 1][j].Visitados) {
-          con = i * 10 + j * 1;
-          con1 = (i - 1) * 10 + j * 1;
-          teste[i][j].ParedeTop(true);
-          graphLogic.addEdge(con, con1);
-          //console.log(con,con1)
+      var parede = matrixLogic[i][j].Paredes;
+      let origem, destino;
+        
+        if (parede.topParede == false && matrixLogic[i - 1][j].Visitados) {
+          origem = i * 10 + j;
+          destino = (i - 1) * 10 + j;
+          graphLogic.addEdge(origem, destino);
+          matrixLogic[i][j].ParedeTop(true);
         }
-        if (parede.botParede == false && teste[i + 1][j].Visitados) {
-          con = i * 10 + j * 1;
-          con1 = (i + 1) * 10 + j * 1;
-          teste[i][j].ParedeBot(true);
-          graphLogic.addEdge(con, con1);
-          //console.log(con,con1)
+        if (parede.botParede == false && matrixLogic[i + 1][j].Visitados) {
+          origem = i * 10 + j;
+          destino = (i + 1) * 10 + j;
+          graphLogic.addEdge(origem, destino);
+          matrixLogic[i][j].ParedeBot(true);
         }
-        if (parede.direitaParede == false && teste[i][j + 1].Visitados) {
-          con = i * 10 + j * 1;
-          con1 = i * 10 + (j + 1) * 1;
-          teste[i][j].ParedeDireita(true);
-          graphLogic.addEdge(con, con1);
-          //console.log(con,con1)
+        if (parede.direitaParede == false && matrixLogic[i][j + 1].Visitados) {
+          origem = i * 10 + j;
+          destino = i * 10 + (j + 1);
+          graphLogic.addEdge(origem, destino);
+          matrixLogic[i][j].ParedeDireita(true);
         }
-        if (parede.esquerdaParede == false && teste[i][j - 1].Visitados) {
-          con = i * 10 + j * 1;
-          con1 = i * 10 + (j - 1) * 1;
-          teste[i][j].ParedeEsquerda(true);
-          graphLogic.addEdge(con, con1);
-          //console.log(con,con1)
+        if (parede.esquerdaParede == false && matrixLogic[i][j - 1].Visitados) {
+          origem = i * 10 + j;
+          destino = i * 10 + (j - 1);
+          graphLogic.addEdge(origem, destino);
+          matrixLogic[i][j].ParedeEsquerda(true);
         }
-      }
     }
   }
-  paintPath(graphLogic.findPath(ponto1, ponto2));
-  paintDestino(graphLogic.findPath(ponto1, ponto2));
+
+    paintPath(graphLogic.findPath(ponto1, ponto2));
+    paintDestiny(graphLogic.findPath(ponto1, ponto2));
+
 }
 
 function paintPath(steps) {
   let p, q;
-  //console.log(steps);
   var counter = 0;
-  var i = setInterval(function () {
-    counter++;
-    if (counter === steps.length) {
-      clearInterval(i);
-      paintCheack(p, q);
-    }
-    if (steps[i] < 10) {
-      p = (steps[counter] * 500) / 10 + 1;
-      q = ((i / 10) * 500) / 10 + 1;
-    } else {
-      p = (parseInt(steps[counter] % 10) * 500) / 10 + 1;
-      q = (parseInt(steps[counter] / 10) * 500) / 10 + 1;
-    }
-    paint(p, q);
+ 
+   var i = setInterval(async function () {
+      counter++;
+      if (counter === steps.length) {
+        clearInterval(i);
+        paintCheack(p, q);
+      }
+      if (steps[i] < 10) {
+        p = 0;
+        q = ((i / 10) * 500) / 10 + 1;
+      } else {
+        p = (await parseInt(steps[counter] % 10) * 500) / 10 + 1;
+        q = (await parseInt(steps[counter] / 10) * 500) / 10 + 1;
+      }
+      paint(p, q);
   }, 200);
-
   function paint(p, q) {
     ctx.fillStyle = '#e72cd1';
     ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
   }
 
   function paintCheack(p, q) {
-    ctx.fillStyle = '#7CF000';
+     ctx.fillStyle = '#7CF000';
     ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
   }
 }
 
-function paintDestino(steps) {
+function paintDestiny(steps) {
   let p, q;
-  //  console.log(steps);
-  var counter = -1;
-  var i = setInterval(function () {
+  var counter = 0;
+  var i = setInterval(async function () {
     counter++;
     if (counter === steps.length) {
       clearInterval(i);
       paintDestino(p, q);
     }
     if (steps[i] < 10) {
-      p = (steps[counter] * 500) / 10 + 1;
+      p = 0;
       q = ((i / 10) * 500) / 10 + 1;
     } else {
-      p = (parseInt(steps[counter] % 10) * 500) / 10 + 1;
-      q = (parseInt(steps[counter] / 10) * 500) / 10 + 1;
+      p = (await parseInt(steps[counter] % 10) * 500) / 10 + 1;
+      q = (await parseInt(steps[counter] / 10) * 500) / 10 + 1;
     }
   });
 
