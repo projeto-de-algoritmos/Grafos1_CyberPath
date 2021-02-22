@@ -393,7 +393,7 @@ function buscar() {
 
   var ponto1, ponto2;
 
-  let min = 2;
+  let min = 5;
   let max = 99;
 
   let aleatorio = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -451,19 +451,20 @@ function paintPath(steps) {
   let p, q;
   var counter = 0;
  
-   var i = setInterval(async function () {
+   var i = setInterval(function () {
       counter++;
       if (counter === steps.length) {
         clearInterval(i);
         paintCheack(p, q);
       }
-      if (steps[i] < 10) {
-        p = 0;
-        q = ((i / 10) * 500) / 10 + 1;
+      if (steps[counter] < 10) {
+        p = (steps[counter] * 500) / 10 + 1;
+        q = 0;
       } else {
-        p = (await parseInt(steps[counter] % 10) * 500) / 10 + 1;
-        q = (await parseInt(steps[counter] / 10) * 500) / 10 + 1;
+        p = (parseInt(steps[counter] % 10) * 500) / 10 + 1;
+        q = (parseInt(steps[counter] / 10) * 500) / 10 + 1;
       }
+      //  x = (this.numColunas * this.paiTamanho) / colunas + 1;
       paint(p, q);
   }, 200);
   function paint(p, q) {
@@ -473,25 +474,25 @@ function paintPath(steps) {
 
   function paintCheack(p, q) {
      ctx.fillStyle = '#7CF000';
-    ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
+     ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
   }
 }
 
 function paintDestiny(steps) {
   let p, q;
-  var counter = 0;
-  var i = setInterval(async function () {
+  var counter = -1;
+  var i = setInterval( function () {
     counter++;
     if (counter === steps.length) {
       clearInterval(i);
       paintDestino(p, q);
     }
-    if (steps[i] < 10) {
-      p = 0;
-      q = ((i / 10) * 500) / 10 + 1;
+    if (steps[counter] < 10) {
+      p = (steps[counter] * 500) / 10 + 1;
+      q = 0;
     } else {
-      p = (await parseInt(steps[counter] % 10) * 500) / 10 + 1;
-      q = (await parseInt(steps[counter] / 10) * 500) / 10 + 1;
+      p = ( parseInt(steps[counter] % 10) * 500) / 10 + 1;
+      q = ( parseInt(steps[counter] / 10) * 500) / 10 + 1;
     }
   });
 
