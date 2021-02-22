@@ -413,64 +413,66 @@ function buscar() {
     for (var j = 0; j < 10; ++j) {
 
       var parede = matrixLogic[i][j].Paredes;
-      var con, con1;
-
+      let origem, destino;
+        
         if (parede.topParede == false && matrixLogic[i - 1][j].Visitados) {
-          con = i * 10 + j;
-          con1 = (i - 1) * 10 + j;
+          origem = i * 10 + j;
+          destino = (i - 1) * 10 + j;
+          graphLogic.addEdge(origem, destino);
           matrixLogic[i][j].ParedeTop(true);
-          graphLogic.addEdge(con, con1);
         }
         if (parede.botParede == false && matrixLogic[i + 1][j].Visitados) {
-          con = i * 10 + j;
-          con1 = (i + 1) * 10 + j;
+          origem = i * 10 + j;
+          destino = (i + 1) * 10 + j;
+          graphLogic.addEdge(origem, destino);
           matrixLogic[i][j].ParedeBot(true);
-          graphLogic.addEdge(con, con1);
         }
         if (parede.direitaParede == false && matrixLogic[i][j + 1].Visitados) {
-          con = i * 10 + j;
-          con1 = i * 10 + (j + 1);
+          origem = i * 10 + j;
+          destino = i * 10 + (j + 1);
+          graphLogic.addEdge(origem, destino);
           matrixLogic[i][j].ParedeDireita(true);
-          graphLogic.addEdge(con, con1);
         }
         if (parede.esquerdaParede == false && matrixLogic[i][j - 1].Visitados) {
-          con = i * 10 + j;
-          con1 = i * 10 + (j - 1);
+          origem = i * 10 + j;
+          destino = i * 10 + (j - 1);
+          graphLogic.addEdge(origem, destino);
           matrixLogic[i][j].ParedeEsquerda(true);
-          graphLogic.addEdge(con, con1);
-                }
+        }
     }
   }
-  paintPath(graphLogic.findPath(ponto1, ponto2));
-  paintDestiny(graphLogic.findPath(ponto1, ponto2));
+
+    paintPath(graphLogic.findPath(ponto1, ponto2));
+    paintDestiny(graphLogic.findPath(ponto1, ponto2));
+
 }
 
 function paintPath(steps) {
   let p, q;
   var counter = 0;
-  var i = setInterval(function () {
-    counter++;
-    if (counter === steps.length) {
-      clearInterval(i);
-      paintCheack(p, q);
-    }
-    if (steps[i] < 10) {
-      p = (steps[counter] * 500) / 10 + 1;
-      q = ((i / 10) * 500) / 10 + 1;
-    } else {
-      p = (parseInt(steps[counter] % 10) * 500) / 10 + 1;
-      q = (parseInt(steps[counter] / 10) * 500) / 10 + 1;
-    }
-    paint(p, q);
-  }, 199);
-
+ 
+   var i = setInterval(async function () {
+      counter++;
+      if (counter === steps.length) {
+        clearInterval(i);
+        paintCheack(p, q);
+      }
+      if (steps[i] < 10) {
+        p = (steps[counter] * 500) / 10 + 1;
+        q = ((i / 10) * 500) / 10 + 1;
+      } else {
+        p = (await parseInt(steps[counter] % 10) * 500) / 10 + 1;
+        q = (await parseInt(steps[counter] / 10) * 500) / 10 + 1;
+      }
+      paint(p, q);
+  }, 200);
   function paint(p, q) {
     ctx.fillStyle = '#e72cd1';
     ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
   }
 
   function paintCheack(p, q) {
-    ctx.fillStyle = '#7CF000';
+     ctx.fillStyle = '#7CF000';
     ctx.fillRect(p, q, 500 / 10 - 3, 500 / 10 - 3);
   }
 }
@@ -478,7 +480,7 @@ function paintPath(steps) {
 function paintDestiny(steps) {
   let p, q;
   var counter = 0;
-  var i = setInterval(function () {
+  var i = setInterval(async function () {
     counter++;
     if (counter === steps.length) {
       clearInterval(i);
@@ -488,8 +490,8 @@ function paintDestiny(steps) {
       p = (steps[counter] * 500) / 10 + 1;
       q = ((i / 10) * 500) / 10 + 1;
     } else {
-      p = (parseInt(steps[counter] % 10) * 500) / 10 + 1;
-      q = (parseInt(steps[counter] / 10) * 500) / 10 + 1;
+      p = (await parseInt(steps[counter] % 10) * 500) / 10 + 1;
+      q = (await parseInt(steps[counter] / 10) * 500) / 10 + 1;
     }
   });
 
