@@ -387,7 +387,10 @@ class Celula {
   }
 }
 
+// BUSCANDO CAMINHOS NO LABIRINTO
+
 function buscar() {
+
   var ponto1, ponto2;
 
   let min = 0;
@@ -398,7 +401,7 @@ function buscar() {
   ponto1 = parseInt(0);
   ponto2 = parseInt(aleatorio);
 
-  var teste = newLabirinto.getGrid();
+  var matrixLogic = newLabirinto.getGrid();
 
   var graphLogic = new Graph(100);
 
@@ -408,49 +411,42 @@ function buscar() {
 
   for (var i = 0; i < 10; ++i) {
     for (var j = 0; j < 10; ++j) {
-      if (!i && !j) teste[i][j].Visitados = false;
-      var parede = teste[i][j].Paredes;
+
+      var parede = matrixLogic[i][j].Paredes;
       var con, con1;
 
-      if (teste[i][j].Visitados) {
-        if (parede.topParede == false && teste[i - 1][j].Visitados) {
-          con = i * 10 + j * 1;
-          con1 = (i - 1) * 10 + j * 1;
-          teste[i][j].ParedeTop(true);
+        if (parede.topParede == false && matrixLogic[i - 1][j].Visitados) {
+          con = i * 10 + j;
+          con1 = (i - 1) * 10 + j;
+          matrixLogic[i][j].ParedeTop(true);
           graphLogic.addEdge(con, con1);
-          //console.log(con,con1)
         }
-        if (parede.botParede == false && teste[i + 1][j].Visitados) {
-          con = i * 10 + j * 1;
-          con1 = (i + 1) * 10 + j * 1;
-          teste[i][j].ParedeBot(true);
+        if (parede.botParede == false && matrixLogic[i + 1][j].Visitados) {
+          con = i * 10 + j;
+          con1 = (i + 1) * 10 + j;
+          matrixLogic[i][j].ParedeBot(true);
           graphLogic.addEdge(con, con1);
-          //console.log(con,con1)
         }
-        if (parede.direitaParede == false && teste[i][j + 1].Visitados) {
-          con = i * 10 + j * 1;
-          con1 = i * 10 + (j + 1) * 1;
-          teste[i][j].ParedeDireita(true);
+        if (parede.direitaParede == false && matrixLogic[i][j + 1].Visitados) {
+          con = i * 10 + j;
+          con1 = i * 10 + (j + 1);
+          matrixLogic[i][j].ParedeDireita(true);
           graphLogic.addEdge(con, con1);
-          //console.log(con,con1)
         }
-        if (parede.esquerdaParede == false && teste[i][j - 1].Visitados) {
-          con = i * 10 + j * 1;
-          con1 = i * 10 + (j - 1) * 1;
-          teste[i][j].ParedeEsquerda(true);
+        if (parede.esquerdaParede == false && matrixLogic[i][j - 1].Visitados) {
+          con = i * 10 + j;
+          con1 = i * 10 + (j - 1);
+          matrixLogic[i][j].ParedeEsquerda(true);
           graphLogic.addEdge(con, con1);
-          //console.log(con,con1)
-        }
-      }
+                }
     }
   }
   paintPath(graphLogic.findPath(ponto1, ponto2));
-  paintDestino(graphLogic.findPath(ponto1, ponto2));
+  paintDestiny(graphLogic.findPath(ponto1, ponto2));
 }
 
 function paintPath(steps) {
   let p, q;
-  //console.log(steps);
   var counter = 0;
   var i = setInterval(function () {
     counter++;
@@ -466,7 +462,7 @@ function paintPath(steps) {
       q = (parseInt(steps[counter] / 10) * 500) / 10 + 1;
     }
     paint(p, q);
-  }, 200);
+  }, 199);
 
   function paint(p, q) {
     ctx.fillStyle = '#e72cd1';
@@ -479,10 +475,9 @@ function paintPath(steps) {
   }
 }
 
-function paintDestino(steps) {
+function paintDestiny(steps) {
   let p, q;
-  //  console.log(steps);
-  var counter = -1;
+  var counter = 0;
   var i = setInterval(function () {
     counter++;
     if (counter === steps.length) {
