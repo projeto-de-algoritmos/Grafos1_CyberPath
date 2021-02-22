@@ -4,6 +4,7 @@ let atual;
 let destino;
 
 class Graph {
+
   constructor(vertex) {
     this.vertex = vertex;
     this.listAdj = new Map();
@@ -20,7 +21,6 @@ class Graph {
   }
   addEdge(v, w) {
     this.listAdj.get(v).push(w);
-    //this.listAdj.get(w).push(v);
   }
   print() {
     var vertex = this.listAdj.keys();
@@ -38,6 +38,8 @@ class Graph {
   get Keys() {
     return this.listAdj.keys();
   }
+  //bfs
+
   bfs(v) {
     var fila = [];
     var visitados = []; // vetor de visitados
@@ -61,6 +63,8 @@ class Graph {
       }
     }
   }
+  //dfs
+
   dfs(v) {
     var visitados = [];
     this.path(v, visitados);
@@ -76,16 +80,18 @@ class Graph {
       if (!visitados[value]) this.path(value, visitados);
     }
   }
+  //findPath
+
   findPath(origem, destino) {
     if (origem == destino) {
-      return [origem, destino];
+      return [origem, origem];
     }
 
     var fila = [origem],
       visitados = {},
       ant = {},
       aux = 0,
-      steps;
+      steps = [];
 
     while (aux < fila.length) {
       var u = fila[aux];
