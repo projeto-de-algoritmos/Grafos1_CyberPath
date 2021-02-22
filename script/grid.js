@@ -393,7 +393,7 @@ function buscar() {
 
   var ponto1, ponto2;
 
-  let min = 0;
+  let min = 2;
   let max = 99;
 
   let aleatorio = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -406,7 +406,7 @@ function buscar() {
   var graphLogic = new Graph(100);
 
   for (var i = 0; i < 100; ++i) {
-    graphLogic.addVertex(i);
+      graphLogic.addVertex(i);
   }
 
   for (var i = 0; i < 10; ++i) {
@@ -458,7 +458,7 @@ function paintPath(steps) {
         paintCheack(p, q);
       }
       if (steps[i] < 10) {
-        p = (steps[counter] * 500) / 10 + 1;
+        p = 0;
         q = ((i / 10) * 500) / 10 + 1;
       } else {
         p = (await parseInt(steps[counter] % 10) * 500) / 10 + 1;
@@ -487,7 +487,7 @@ function paintDestiny(steps) {
       paintDestino(p, q);
     }
     if (steps[i] < 10) {
-      p = (steps[counter] * 500) / 10 + 1;
+      p = 0;
       q = ((i / 10) * 500) / 10 + 1;
     } else {
       p = (await parseInt(steps[counter] % 10) * 500) / 10 + 1;
