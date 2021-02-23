@@ -30,3 +30,6 @@ Inicie o live server ou abra o arquivo index.html em algum navegador de preferê
 
 [Index](index.html)
 
+##Vídeo
+<a href="https://www.youtube.com/watch?v=qP46U96Y_Fw&feature=youtu.be" target="_top">Link</a> para o vídeo explicativo.
+
